@@ -64,6 +64,7 @@ export const Main = () => {
               마이페이지
             </p>
             <p
+              onClick={() => navigate("/alert")}
               style={{
                 flexGrow: 0,
                 flexShrink: 0,
@@ -76,6 +77,7 @@ export const Main = () => {
               알림확인
             </p>
             <p
+              onClick={() => navigate("/history")}
               style={{
                 flexGrow: 0,
                 flexShrink: 0,

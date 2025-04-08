@@ -1,8 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export const Findid = () => {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+
+  const handleFindId = async () => {
+    try {
+      const response = await axios.post("http://localhost:3001/api/find-id", {
+        name,
+        phone,
+      });
+      alert(`당신의 아이디는: ${response.data.userId}`);
+    } catch (error) {
+      alert("아이디를 찾을 수 없습니다.");
+    }
+  };
     
   return (  
     <>
@@ -27,6 +42,7 @@ export const Findid = () => {
         }}
       >
         <p
+          onClick={handleFindId}
           style={{
             position: "absolute",
             left: 556,
@@ -44,6 +60,7 @@ export const Findid = () => {
         <input
           type="text"
           placeholder="이름"
+          onChange={(e) => setName(e.target.value)}
           style={{
             position : "absolute",
             left : 472.5,
@@ -109,6 +126,7 @@ export const Findid = () => {
           <input
             type="text"
             placeholder="전화번호"
+            onChange={(e) => setPhone(e.target.value)}
             style={{
               position : "absolute",
               left : 472.5,

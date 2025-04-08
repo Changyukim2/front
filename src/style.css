@@ -1,0 +1,206 @@
+/* ===============================
+   기본 설정
+================================= */
+@charset "utf-8";
+
+body {
+  margin: 0;
+  font-family: "Noto Sans KR", sans-serif;
+  background-color: #fff;
+  color: #000;
+}
+
+/* ===============================
+   GNB (공통 상단 내비게이션 바)
+================================= */
+.gnb {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.gnb-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+}
+
+.logo a {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #000;
+  text-decoration: none;
+}
+
+.gnb-menu {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.gnb-menu li a {
+  font-size: 1rem;
+  color: #000;
+  text-decoration: none;
+}
+
+/* ===============================
+   공통 콘텐츠 영역 기본 레이아웃
+================================= */
+.content {
+  max-width: 1200px;
+  margin: 120px auto 60px;
+  padding: 0 20px;
+}
+
+.page-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+/* ===============================
+   이력조회 페이지 (history)
+================================= */
+.history .search-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.history .search-section input {
+  padding: 10px;
+  font-size: 1rem;
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.history .search-btn {
+  padding: 10px 20px;
+  background: #000;
+  color: #fff;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.history .history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.history .history-table th,
+.history .history-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.history .history-table th {
+  background-color: #f0f0f0;
+}
+
+.history .note {
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.history .note a {
+  font-weight: 600;
+  color: #4a27b3;
+  text-decoration: none;
+}
+
+/* ===============================
+   알림확인 페이지 (alert)
+================================= */
+.alert .content {
+  max-width: 800px;
+  margin: 140px auto 60px;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.alert .page-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.alert-card {
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  color: #fff;
+  text-align: left;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 낙상 단계별 색상 – 1단계가 가장 심각함 */
+.alert-card.step1 {
+  background-color: #e53935; /* 빨강 (1단계 - 심각) */
+}
+
+.alert-card.step2 {
+  background-color: #fbc02d; /* 노랑 (2단계 - 중간) */
+  color: #000; /* 밝은 배경엔 어두운 텍스트 */
+}
+
+.alert-card.step3 {
+  background-color: #1e88e5; /* 파랑 (3단계 - 경미) */
+}
+
+
+/* 실시간 낙상알림 */
+.live-alert-box {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 999;
+  width: 300px;
+  padding: 10px;
+}
+
+.sse-card {
+  padding: 16px;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.sse-card:hover {
+  opacity: 0.9;
+}
+
+.step1 {
+  background-color: #e53935; /* 빨강 - 심각 */
+}
+
+.step2 {
+  background-color: #fbc02d; /* 노랑 - 중간 */
+  color: black;
+}
+
+.step3 {
+  background-color: #1e88e5; /* 파랑 - 경미 */
+}

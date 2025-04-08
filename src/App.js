@@ -7,6 +7,9 @@ import Findid from "./components/Findid";
 import Findpw from "./components/Findpw";
 import Resetpw from "./components/Resetpw";
 import Mypage from "./components/Mypage";
+import Alert from "./components/Alert";
+import History from "./components/History";
+import LiveFallAlert from "./components/LiveFallAlert";
 
 function App() {
   return (
@@ -19,6 +22,9 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/resetpw" element={<Resetpw />} />
       <Route path="/mypage" element={<Mypage />} />
+      <Route path="/alert" element={<Alert />} />
+      <Route path="/history" element={<History />} />
+      <Route path="/livefallalert" element={<LiveFallAlert />} />
     </Routes>
   </Router>
   );

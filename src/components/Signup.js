@@ -3,7 +3,51 @@ import { useNavigate } from "react-router-dom";
 
 export const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    id: "",
+    password: "",
+    passwordCheck: "",
+    name: "",
+    year: "",
+    month: "",
+    day: "",
+    phone: "",
+  });
   const navigate = useNavigate();
+
+  const handleChange = (field, value) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  {/* 가입 정보 서버로 전송 */}
+  const handleSignup = async () => {
+    const birth = `${formData.year}-${formData.month}-${formData.day}`;
+    try {
+      const response = await fetch("http://localhost:5000/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          password: formData.password,
+          name: formData.name,
+          birth,
+          phone: formData.phone,
+        }),
+      });
+
+      if (response.ok) {
+        alert("회원가입 성공!");
+        navigate("/login");
+      } else {
+        const error = await response.json();
+        alert("회원가입 실패: " + error.message);
+      }
+    } catch (err) {
+      alert("서버 오류: " + err.message);
+    }
+  };
 
   return (
     <>
@@ -30,6 +74,8 @@ export const Signup = () => {
         <input
             type="text"
             placeholder="아이디"
+            value={formData.username}
+            onChange={(e) => handleChange("username", e.target.value)}
             style={{
               position : "absolute",
               left : 492,
@@ -48,6 +94,8 @@ export const Signup = () => {
           <input
             type={showPassword ? "text" : "password"}
             placeholder="비밀번호"
+            value={formData.password}
+            onChange={(e) => handleChange("password", e.target.value)}
             style={{
               position : "absolute",
               left : 492,
@@ -66,6 +114,8 @@ export const Signup = () => {
           <input
             type={showPassword ? "text" : "password"}
             placeholder="비밀번호 재확인"
+            value={formData.passwordCheck}
+            onChange={(e) => handleChange("passwordCheck", e.target.value)}
             style={{
               position : "absolute",
               left : 492,
@@ -84,6 +134,8 @@ export const Signup = () => {
           <input
             type="text"
             placeholder="이름"
+            value={formData.name}
+            onChange={(e) => handleChange("name", e.target.value)}
             style={{
               position : "absolute",
               left : 492,
@@ -114,7 +166,7 @@ export const Signup = () => {
             }}
           />
           <p
-            onClick={() => navigate("/login")}
+            onClick={handleSignup}
             style={{
               width: "208.46px",
               position: "absolute",
@@ -133,7 +185,10 @@ export const Signup = () => {
         {/* 생년월일 입력창 */}
           <input
             type="text"
-            placeholder="년"
+            placeholder="YYYY"
+            maxLength={4}
+            value={formData.year} 
+            onChange={(e) => handleChange("year", e.target.value)} 
             style={{
               position : "absolute",
               left : 492,
@@ -149,7 +204,10 @@ export const Signup = () => {
           />
           <input
             type="text"
-            placeholder="월"
+            placeholder="MM"
+            maxLength={2}
+            value={formData.month}
+            onChange={(e) => handleChange("month", e.target.value)} 
             style={{
               position : "absolute",
               left : 664.5,
@@ -165,7 +223,10 @@ export const Signup = () => {
           />
           <input
             type="text"
-            placeholder="일"
+            placeholder="DD"
+            maxLength={2}
+            value={formData.day}
+            onChange={(e) => handleChange("day", e.target.value)}
             style={{
               position : "absolute",
               left : 836,
@@ -211,6 +272,8 @@ export const Signup = () => {
           <input
             type="text"
             placeholder= "전화번호"
+            value={formData.phone}
+            onChange={(e) => handleChange("phone", e.target.value)}
             style={{
               position : "absolute",
               left : 490.5,

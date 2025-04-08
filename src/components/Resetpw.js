@@ -1,9 +1,28 @@
 import React, {useState} from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export const Resetpw = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
+
+  const handleResetPassword = async () => {
+    if (password !== confirmPassword) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+    try {
+      await axios.post("http://localhost:3001/api/reset-password", {
+        password,
+      });
+      alert("비밀번호가 재설정되었습니다.");
+      navigate("/login");
+    } catch (error) {
+      alert("비밀번호 재설정 실패");
+    }
+  };
 
   return (
     <>
@@ -53,7 +72,7 @@ export const Resetpw = () => {
             }}
           />
           <p
-            onClick={() => navigate("/login")}
+            onClick={handleResetPassword}
             style={{
               width: "371.68px",
               height: 29,
@@ -69,10 +88,11 @@ export const Resetpw = () => {
             비밀번호 재설정
           </p>
         </div>
-                {/* 비밀번호 입력창 */}
-                <input
+        {/* 비밀번호 입력창 */}
+          <input
             type={showPassword ? "text" : "password"}
             placeholder="비밀번호"
+            onChange={(e) => setPassword(e.target.value)}
             style={{
               position : "absolute",
               left : 470,
@@ -91,6 +111,7 @@ export const Resetpw = () => {
           <input
             type={showPassword ? "text" : "password"}
             placeholder="비밀번호 재확인"
+            onChange={(e) => setConfirmPassword(e.target.value)} 
             style={{
               position : "absolute",
               left : 470,

@@ -3,7 +3,32 @@ import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  {/* 로그인 처리 함수 */}
+  const handleLogin = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const result = await response.json();
+      if (response.ok && result.success) {
+        navigate("/"); // 로그인 성공 시 기존 동작 유지
+      } else {
+        alert(result.message || "로그인 실패");
+      }
+    } catch (error) {
+      alert("아이디와 비밀번호를 확인하세요.");
+      console.error("Login error:", error);
+    }
+  };
   
   return(
     <>
@@ -85,6 +110,8 @@ export const Login = () => {
         <input
           type="text"
           placeholder="아이디"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           style={{
             position: "absolute",
             left: 454,
@@ -104,6 +131,8 @@ export const Login = () => {
         <input
           type={showPassword ? "text" : "password"}
           placeholder="비밀번호"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           style={{
             position: "absolute",
             left: 454,
@@ -228,7 +257,7 @@ export const Login = () => {
           </div>
           <div style={{ width: 66, height: 29 }}>
             <p
-              onClick={() => navigate("/")}
+              onClick={handleLogin}
               style={{
                 position: "absolute",
                 left: 687,
