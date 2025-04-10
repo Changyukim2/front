@@ -10,25 +10,32 @@ export const Login = () => {
   {/* 로그인 처리 함수 */}
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/login", {
+      const form = new URLSearchParams();
+      form.append("member_id", username);
+      form.append("passwd", password);
+  
+      const response = await fetch("http://localhost:8000/member/login/", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: JSON.stringify({ username, password }),
+        body: form,
+        credentials: "include" // 세션 쿠키를 받기 위해 필요
       });
-
-      const result = await response.json();
-      if (response.ok && result.success) {
-        navigate("/"); // 로그인 성공 시 기존 동작 유지
+  
+      // 성공 시: Django는 redirect로 HTML 응답을 보냄 → 여기선 상태 코드로만 판단
+      if (response.ok) {
+        alert("로그인 성공!");
+        navigate("/"); // 원하는 페이지로 이동
       } else {
-        alert(result.message || "로그인 실패");
+        alert("아이디 또는 비밀번호가 일치하지 않습니다.");
       }
     } catch (error) {
-      alert("아이디와 비밀번호를 확인하세요.");
+      alert("로그인 중 오류가 발생했습니다.");
       console.error("Login error:", error);
     }
   };
+  
   
   return(
     <>

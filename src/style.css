@@ -204,3 +204,24 @@ body {
 .step3 {
   background-color: #1e88e5; /* 파랑 - 경미 */
 }
+
+
+/* ===============================
+   마이페이지 팝업 (모달)
+================================= */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  position: relative;
+}

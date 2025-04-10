@@ -21,33 +21,41 @@ export const Signup = () => {
 
   {/* 가입 정보 서버로 전송 */}
   const handleSignup = async () => {
+    if (formData.password !== formData.passwordCheck) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+  
     const birth = `${formData.year}-${formData.month}-${formData.day}`;
+  
     try {
-      const response = await fetch("http://localhost:5000/api/signup", {
+      const response = await fetch("http://localhost:8000/member/register/", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          username: formData.username,
-          password: formData.password,
+          member_id: formData.id,
+          passwd: formData.password,
           name: formData.name,
-          birth,
+          ward_name: "응급병동", // UI에 없으니 일단 고정 (또는 선택 항목 추가 가능)
           phone: formData.phone,
-        }),
+          birth_date: birth
+        })
       });
-
-      if (response.ok) {
+  
+      const result = await response.json();
+      if (response.ok && result.success) {
         alert("회원가입 성공!");
         navigate("/login");
       } else {
-        const error = await response.json();
-        alert("회원가입 실패: " + error.message);
+        alert("회원가입 실패: " + result.message);
       }
     } catch (err) {
       alert("서버 오류: " + err.message);
     }
   };
+
 
   return (
     <>
@@ -74,8 +82,8 @@ export const Signup = () => {
         <input
             type="text"
             placeholder="아이디"
-            value={formData.username}
-            onChange={(e) => handleChange("username", e.target.value)}
+            value={formData.id}
+            onChange={(e) => handleChange("id", e.target.value)}
             style={{
               position : "absolute",
               left : 492,

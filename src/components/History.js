@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
+import Mypage from "./Mypage"; // 마이페이지 컴포넌트 import
 import "../style.css";
+import GNB from "./GNB";
 
 function History() {
   const [historyData, setHistoryData] = useState([]);
   const [searchName, setSearchName] = useState("");
+  const [showMypage, setShowMypage] = useState(false); // 팝업 상태 추가
 
-  // API에서 이력 조회
+  // 이력조회 API
   const fetchHistory = (name = "") => {
     axios
-      .get("http://localhost:8000/api/fall-history/", {
-        params: name ? { name } : {}, // ?name=홍길동 형태
+      .get("http://localhost:8000/member/fall/list/", {
+        params: name ? { name } : {},
       })
       .then((res) => {
         setHistoryData(res.data);
@@ -20,9 +24,8 @@ function History() {
       });
   };
 
-  // 컴포넌트 마운트 시 전체 이력 로드
   useEffect(() => {
-    fetchHistory();
+    fetchHistory(); // 페이지 처음 로드시 전체 이력 불러오기
   }, []);
 
   const handleSearch = () => {
@@ -31,20 +34,9 @@ function History() {
 
   return (
     <div className="history container">
-      <header className="gnb">
-        <div className="gnb-inner">
-          <h1 className="logo"><a href="/">Home</a></h1>
-          <nav>
-            <ul className="gnb-menu">
-              <li><a href="/my_page">마이페이지</a></li>
-              <li><a href="/history">이력조회</a></li>
-              <li><a href="/alert">알림확인</a></li>
-              <li><a href="/login">로그인</a></li>
-            </ul>
-          </nav>
-        </div>
-      </header>
+      <GNB />
 
+      {/* 본문 */}
       <main className="content">
         <h2 className="page-title">낙상이력 조회</h2>
 
@@ -85,7 +77,7 @@ function History() {
                     <td>{item.fall_date}</td>
                     <td>{item.fall_level}</td>
                     <td>{item.fall_area || "-"}</td>
-                    <td>{item.memo || "-"}</td>
+                    <td>{item.note || "-"}</td>
                   </tr>
                 ))
               ) : (
@@ -102,6 +94,15 @@ function History() {
           </p>
         </section>
       </main>
+
+      {/* 마이페이지 팝업 */}
+      {showMypage && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <Mypage onClose={() => setShowMypage(false)} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
