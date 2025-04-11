@@ -56,7 +56,7 @@ export const Main = () => {
                 color: "#000",
               }}
             >
-              낙상 방지 시스템
+              낙상 감지 시스템
             </p>
           </div>
         </div>
