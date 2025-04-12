@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Start from "./components/Start";
 import Main from "./components/Main";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
@@ -15,7 +16,8 @@ function App() {
   return (
   <Router>
     <Routes>
-      <Route path="/" element={<Main />} />
+      <Route path="/" element={<Start />} />
+      <Route path="/main" element={<Main />} />
       <Route path="/login" element={<Login />} />
       <Route path="/findid" element={<Findid />} />
       <Route path="/findpw" element={<Findpw />} />
