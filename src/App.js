@@ -10,6 +10,7 @@ import Mypage from "./components/Mypage";
 import Alert from "./components/Alert";
 import History from "./components/History";
 import LiveFallAlert from "./components/LiveFallAlert";
+import Detect from "./components/Detect";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <Route path="/resetpw" element={<Resetpw />} />
       <Route path="/mypage" element={<Mypage />} />
       <Route path="/alert" element={<Alert />} />
+      <Route path="/detect" element={<Detect />} />
       <Route path="/history" element={<History />} />
       <Route path="/livefallalert" element={<LiveFallAlert />} />
     </Routes>
