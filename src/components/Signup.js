@@ -298,7 +298,7 @@ export const Signup = () => {
 
           <input
             type="text"
-            placeholder= "인증번호"
+            placeholder= "병동이름"
             style={{
               position : "absolute",
               left : 492,

@@ -25,10 +25,11 @@ export const Mypage = ({ onClose, onLogout }) => {
         background: "#eee"
       }}
     >
-      <p style={styleLine}>이름 : {userData?.name || "..."}</p>
-      <p style={{ ...styleLine, top: 210 }}>아이디 : {userData?.member_id || "..."}</p>
-      <p style={{ ...styleLine, top: 290 }}>전화번호 : {userData?.phone || "..."}</p>
-      <p style={{ ...styleLine, top: 370 }}>생년월일 : {userData?.birth_date || "정보 없음"}</p>
+      <p style={{ ...styleLine, top: 80 }}>이름 : {userData?.name || "..."}</p>
+      <p style={{ ...styleLine, top: 150 }}>아이디 : {userData?.member_id || "..."}</p>
+      <p style={{ ...styleLine, top: 220 }}>전화번호 : {userData?.phone || "..."}</p>
+      <p style={{ ...styleLine, top: 290 }}>생년월일 : {userData?.birth_date || "..."}</p>
+      <p style={{ ...styleLine, top: 360 }}>병동 : {userData?.ward_name || "..."}</p>
 
       {/* 로그아웃 버튼 */}
       <div
@@ -39,7 +40,7 @@ export const Mypage = ({ onClose, onLogout }) => {
           width: 663,
           position: "absolute",
           left: 78,
-          top: 526,
+          top: 480,
           gap: 8,
           padding: 14,
           borderRadius: 8,
@@ -47,8 +48,8 @@ export const Mypage = ({ onClose, onLogout }) => {
           cursor: "pointer"
         }}
         onClick={() => {
-          onClose(); // 팝업 닫기
-          onLogout(); // 실제 로그아웃 처리
+          onClose();
+          onLogout();
         }}
       >
         <p style={{ fontSize: 16, fontWeight: 500, color: "#fff" }}>로그아웃</p>
@@ -88,7 +89,6 @@ const styleLine = {
   height: 48,
   position: "absolute",
   left: 98,
-  top: 130,
   fontSize: 32,
   textAlign: "left",
   color: "#000"
